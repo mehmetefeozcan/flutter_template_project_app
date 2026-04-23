@@ -1,20 +1,23 @@
 import 'package:hive/hive.dart';
-import 'hive_boxes.dart';
 
 class HiveService {
-  Box get _appBox => Hive.box(HiveBoxes.app);
+  final Box box;
 
-  Future<void> setApp(String key, dynamic value) async {
-    await _appBox.put(key, value);
+  HiveService(this.box);
+
+  T? get<T>(String key, {T? defaultValue}) {
+    return box.get(key, defaultValue: defaultValue) as T?;
   }
 
-  T? getApp<T>(String key) {
-    return _appBox.get(key) as T?;
+  Future<void> set<T>(String key, T value) async {
+    await box.put(key, value);
   }
 
-  Future<void> deleteApp(String key) async {
-    await _appBox.delete(key);
+  Future<void> delete(String key) async {
+    await box.delete(key);
   }
 
-  bool containsApp(String key) => _appBox.containsKey(key);
+  Future<void> clear() async {
+    await box.clear();
+  }
 }

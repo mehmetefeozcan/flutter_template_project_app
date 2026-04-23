@@ -11,8 +11,8 @@ Future<void> main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // DI Configuration
-  await configureDependencies();
   await HiveInitializer.init();
+  await configureDependencies();
 
   runApp(const MyApp());
 }
