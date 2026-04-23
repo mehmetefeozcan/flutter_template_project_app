@@ -16,6 +16,8 @@ import 'package:injectable/injectable.dart' as _i526;
 import '../../features/splash/store/splash_store.dart' as _i144;
 import '../network/custom_dio_service.dart' as _i587;
 import '../network/dio_module.dart' as _i614;
+import '../storage/hive_service.dart' as _i459;
+import 'storage_module.dart' as _i371;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -24,8 +26,10 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final storageModule = _$StorageModule();
     final dioModule = _$DioModule();
     gh.factory<_i144.SplashStore>(() => _i144.SplashStore());
+    gh.lazySingleton<_i459.HiveService>(() => storageModule.hiveService);
     gh.lazySingleton<_i361.Dio>(() => dioModule.dio());
     gh.factory<_i587.CustomDioService>(
       () => _i587.CustomDioService(gh<_i361.Dio>()),
@@ -33,5 +37,7 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
+
+class _$StorageModule extends _i371.StorageModule {}
 
 class _$DioModule extends _i614.DioModule {}

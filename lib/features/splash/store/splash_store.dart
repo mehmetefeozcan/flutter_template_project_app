@@ -13,7 +13,7 @@ abstract class _SplashStore extends BaseStore with Store {
   bool navigateToHome = false;
 
   Future<void> initApp() async {
-    await Future.delayed(const Duration(milliseconds: 3000));
+    await Future.delayed(const Duration(milliseconds: 300));
 
     navigateToHome = true;
   }

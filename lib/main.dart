@@ -1,3 +1,4 @@
+import 'package:flutter_template_project_app/core/storage/hive_initializer.dart';
 import 'package:flutter_template_project_app/core/di/locator.dart';
 import 'package:flutter_template_project_app/app.dart';
 
@@ -11,6 +12,7 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   // DI Configuration
   await configureDependencies();
+  await HiveInitializer.init();
 
   runApp(const MyApp());
 }
