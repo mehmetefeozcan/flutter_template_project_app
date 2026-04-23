@@ -14,6 +14,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:hive/hive.dart' as _i979;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/home/service/home_service.dart' as _i638;
+import '../../features/home/store/home_store.dart' as _i842;
 import '../../features/splash/store/splash_store.dart' as _i144;
 import '../network/custom_dio_service.dart' as _i587;
 import '../network/dio_module.dart' as _i614;
@@ -41,9 +43,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i587.CustomDioService>(
       () => _i587.CustomDioService(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i638.HomeService>(
+      () => _i638.HomeService(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i459.HiveService>(
       () => storageModule.settingsStorage(gh<_i979.Box<dynamic>>()),
     );
+    gh.factory<_i842.HomeStore>(() => _i842.HomeStore(gh<_i638.HomeService>()));
     gh.singleton<_i185.ThemeStore>(
       () => _i185.ThemeStore(gh<_i459.HiveService>()),
     );

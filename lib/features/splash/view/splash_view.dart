@@ -25,7 +25,7 @@ class _SplashViewState extends State<SplashView>
     addReaction(
       reaction<bool>((_) => store.navigateToHome, (navigateToHome) {
         if (navigateToHome) {
-          context.push(MainRoutes.home);
+          context.go(MainRoutes.home);
         }
       }),
     );
