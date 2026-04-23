@@ -1,20 +1,16 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_template_project_app/core/di/locator.dart';
+import 'package:flutter_template_project_app/app.dart';
 
-void main() {
-  runApp(const MainApp());
-}
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+Future<void> main() async {
+  // System Configuration
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  // DI Configuration
+  await configureDependencies();
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
-  }
+  runApp(const MyApp());
 }
