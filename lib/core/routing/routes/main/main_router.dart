@@ -14,7 +14,7 @@ class MainRouter {
         return RouterTransitionHelper.build(
           state: state,
           child: const SplashView(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.slideRight,
         );
       },
     ),
@@ -24,7 +24,7 @@ class MainRouter {
         return RouterTransitionHelper.build(
           state: state,
           child: const HomeView(),
-          type: PageTransitionType.fade,
+          type: PageTransitionType.slideRight,
         );
       },
     ),

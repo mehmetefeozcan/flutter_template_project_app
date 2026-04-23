@@ -25,7 +25,7 @@ class _SplashViewState extends State<SplashView>
     addReaction(
       reaction<bool>((_) => store.navigateToHome, (navigateToHome) {
         if (navigateToHome) {
-          context.go(MainRoutes.home);
+          context.push(MainRoutes.home);
         }
       }),
     );
@@ -37,7 +37,6 @@ class _SplashViewState extends State<SplashView>
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: Colors.amber,
-
       body: Center(child: Text('Splash View')),
     );
   }
