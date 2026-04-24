@@ -65,7 +65,7 @@ abstract class _BaseStore with Store {
   ) {
     if (error.type == ApiErrorType.cancelled) return null;
 
-    errorMessage = error.message;
+    runInAction(() => errorMessage = error.message);
     onFailure?.call(error);
     return null;
   }

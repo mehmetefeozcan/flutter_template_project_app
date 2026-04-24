@@ -1,4 +1,5 @@
 import 'package:flutter_template_project_app/core/storage/hive_initializer.dart';
+import 'package:flutter_template_project_app/core/state/theme_store.dart';
 import 'package:flutter_template_project_app/core/di/locator.dart';
 import 'package:flutter_template_project_app/app.dart';
 
@@ -13,6 +14,8 @@ Future<void> main() async {
   // DI Configuration
   await HiveInitializer.init();
   await configureDependencies();
+  // Initiliaze Theme
+  await getIt<ThemeStore>().loadTheme();
 
   runApp(const MyApp());
 }
