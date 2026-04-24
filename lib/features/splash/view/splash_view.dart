@@ -16,6 +16,7 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView>
     with BaseViewMixin<SplashView> {
+  @override
   late final SplashStore store;
 
   @override
