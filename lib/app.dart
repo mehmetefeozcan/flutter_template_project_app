@@ -1,3 +1,4 @@
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_template_project_app/core/routing/app_router.dart';
 import 'package:flutter_template_project_app/core/state/theme_store.dart';
 import 'package:flutter_template_project_app/core/theme/app_theme.dart';
@@ -20,12 +21,14 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) => RootRestorationScope(
         restorationId: 'root',
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          routerConfig: AppRouter.router,
-          theme: appTheme.lightTheme,
-          darkTheme: appTheme.darkTheme,
-          themeMode: themeStore.themeMode,
+        child: Observer(
+          builder: (_) => MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            routerConfig: AppRouter.router,
+            theme: appTheme.lightTheme,
+            darkTheme: appTheme.darkTheme,
+            themeMode: themeStore.themeMode,
+          ),
         ),
       ),
     );

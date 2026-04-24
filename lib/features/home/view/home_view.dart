@@ -30,33 +30,42 @@ class _HomeViewState extends State<HomeView> with BaseViewMixin<HomeView> {
       body: Observer(
         builder: (context) {
           if (store.isLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return buildLoading();
           } else {
             if (store.userList != null) {
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: store.userList?.length ?? 0,
-                itemBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 8.h,
-                  ),
-                  child: Text(
-                    "Merhaba ${store.userList?[index].firstName}",
-                    style: TextStyle(fontSize: 16.sp, color: Colors.white),
-                  ),
-                ),
-              );
+              return buildNameList();
             } else {
-              return Center(
-                child: Text(
-                  "Hata: ${store.errorMessage}",
-                  style: TextStyle(fontSize: 16.sp, color: Colors.white),
-                ),
-              );
+              return buildErrorMessage();
             }
           }
         },
+      ),
+    );
+  }
+
+  Widget buildLoading() {
+    return const Center(child: CircularProgressIndicator());
+  }
+
+  Widget buildNameList() {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: store.userList?.length ?? 0,
+      itemBuilder: (context, index) => Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        child: Text(
+          "Merhaba ${store.userList?[index].firstName}",
+          style: TextStyle(fontSize: 16.sp, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget buildErrorMessage() {
+    return Center(
+      child: Text(
+        "Hata: ${store.errorMessage}",
+        style: TextStyle(fontSize: 16.sp, color: Colors.white),
       ),
     );
   }
