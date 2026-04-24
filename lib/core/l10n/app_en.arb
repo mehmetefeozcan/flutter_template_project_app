@@ -1,0 +1,12 @@
+{
+  "@@locale": "en",
+  "appTitle": "My App",
+  "@appTitle": { "description": "The application title" },
+  "welcomeMessage": "Hello {name}",
+  "@welcomeMessage": {
+    "description": "Welcome message",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  }
+}

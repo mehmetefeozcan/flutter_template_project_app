@@ -19,6 +19,7 @@ import '../../features/home/store/home_store.dart' as _i842;
 import '../../features/splash/store/splash_store.dart' as _i144;
 import '../network/custom_dio_service.dart' as _i587;
 import '../network/dio_module.dart' as _i614;
+import '../state/language_store.dart' as _i1072;
 import '../state/theme_store.dart' as _i185;
 import '../storage/hive_service.dart' as _i459;
 import '../theme/app_theme.dart' as _i1025;
@@ -45,6 +46,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i459.HiveService>(
       () => storageModule.settingsStorage(gh<_i979.Box<dynamic>>()),
+    );
+    gh.singleton<_i1072.LanguageStore>(
+      () => _i1072.LanguageStore(gh<_i459.HiveService>()),
     );
     gh.singleton<_i185.ThemeStore>(
       () => _i185.ThemeStore(gh<_i459.HiveService>()),

@@ -61,7 +61,7 @@ class _HomeViewState extends State<HomeView> with BaseViewMixin<HomeView> {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         child: Text(
           "Merhaba ${_store!.userList?[index].firstName}",
-          style: TextStyle(fontSize: 16.sp, color: Colors.white),
+          style: TextStyle(fontSize: 16.sp),
         ),
       ),
     );
@@ -71,7 +71,7 @@ class _HomeViewState extends State<HomeView> with BaseViewMixin<HomeView> {
     return Center(
       child: Text(
         "Hata: ${_store!.errorMessage}",
-        style: TextStyle(fontSize: 16.sp, color: Colors.white),
+        style: TextStyle(fontSize: 16.sp),
       ),
     );
   }
