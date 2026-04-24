@@ -31,7 +31,6 @@ class _HomeViewState extends State<HomeView> with BaseViewMixin<HomeView> {
           if (store.isLoading) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            print(store.userList);
             if (store.userList != null) {
               return ListView.builder(
                 shrinkWrap: true,

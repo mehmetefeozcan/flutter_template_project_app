@@ -52,6 +52,21 @@ mixin _$BaseStore on _BaseStore, Store {
     return _$runAsyncAction.run(() => super.run<T>(request));
   }
 
+  late final _$runResultAsyncAction = AsyncAction(
+    '_BaseStore.runResult',
+    context: context,
+  );
+
+  @override
+  Future<T?> runResult<T>(
+    Future<Result<T, ApiException>> Function() request, {
+    void Function(ApiException)? onFailure,
+  }) {
+    return _$runResultAsyncAction.run(
+      () => super.runResult<T>(request, onFailure: onFailure),
+    );
+  }
+
   @override
   String toString() {
     return '''

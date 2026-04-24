@@ -19,7 +19,7 @@ abstract class _HomeStore extends BaseStore with Store {
 
   Future<void> initApp() async {
     await run(() async {
-      userList = await _homeService.getUserList();
+      userList = await runResult(_homeService.getUserList);
     });
   }
 }

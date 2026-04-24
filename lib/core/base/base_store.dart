@@ -1,3 +1,4 @@
+import 'package:flutter_template_project_app/core/network/result.dart';
 import 'package:mobx/mobx.dart';
 
 part 'base_store.g.dart';
@@ -23,5 +24,37 @@ abstract class _BaseStore with Store {
     } finally {
       isLoading = false;
     }
+  }
+
+  @action
+  Future<T?> runResult<T>(
+    Future<Result<T, ApiException>> Function() request, {
+    void Function(ApiException error)? onFailure,
+  }) async {
+    isLoading = true;
+    errorMessage = null;
+
+    try {
+      final result = await request();
+
+      return switch (result) {
+        Success<T, ApiException>(:final data) => data,
+        Failure<T, ApiException>(:final error) => _handleFailure(
+          error,
+          onFailure,
+        ),
+      };
+    } finally {
+      isLoading = false;
+    }
+  }
+
+  T? _handleFailure<T>(
+    ApiException error,
+    void Function(ApiException)? onFailure,
+  ) {
+    errorMessage = error.message;
+    onFailure?.call(error);
+    return null;
   }
 }

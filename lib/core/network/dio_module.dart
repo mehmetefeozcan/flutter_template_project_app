@@ -19,8 +19,15 @@ abstract class DioModule {
     );
 
     dio.interceptors.addAll([
-      PrettyDioLogger(requestBody: false, responseBody: false),
-      // AuthInterceptor(),
+      PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90,
+      ),
     ]);
 
     return dio;

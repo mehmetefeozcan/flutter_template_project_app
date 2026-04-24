@@ -1,18 +1,26 @@
 import 'package:flutter_template_project_app/features/home/model/user_response_model.dart';
+import 'package:flutter_template_project_app/core/network/custom_dio_service.dart';
+import 'package:flutter_template_project_app/core/constants/api_routes.dart';
+import 'package:flutter_template_project_app/core/network/result.dart';
+
 import 'package:injectable/injectable.dart';
-import 'package:dio/dio.dart';
 
 @lazySingleton
 class HomeService {
-  final Dio _dio;
+  final CustomDioService _dio;
 
   HomeService(this._dio);
 
-  Future<List<UserResponseModel>> getUserList() async {
-    final response = await _dio.get('/users');
+  Future<Result<List<UserResponseModel>, ApiException>> getUserList() async {
+    final result = await _dio.getRequest(ApiRoutes.users.list);
 
-    return (response.data['users'] as List)
-        .map((x) => UserResponseModel.fromJson(x))
-        .toList();
+    return switch (result) {
+      Success(:final data) => Success(
+        (data.data['users'] as List)
+            .map((x) => UserResponseModel.fromJson(x as Map<String, dynamic>))
+            .toList(),
+      ),
+      Failure(:final error) => Failure(error),
+    };
   }
 }

@@ -43,16 +43,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i587.CustomDioService>(
       () => _i587.CustomDioService(gh<_i361.Dio>()),
     );
-    gh.lazySingleton<_i638.HomeService>(
-      () => _i638.HomeService(gh<_i361.Dio>()),
-    );
     gh.lazySingleton<_i459.HiveService>(
       () => storageModule.settingsStorage(gh<_i979.Box<dynamic>>()),
     );
-    gh.factory<_i842.HomeStore>(() => _i842.HomeStore(gh<_i638.HomeService>()));
     gh.singleton<_i185.ThemeStore>(
       () => _i185.ThemeStore(gh<_i459.HiveService>()),
     );
+    gh.lazySingleton<_i638.HomeService>(
+      () => _i638.HomeService(gh<_i587.CustomDioService>()),
+    );
+    gh.factory<_i842.HomeStore>(() => _i842.HomeStore(gh<_i638.HomeService>()));
     return this;
   }
 }
