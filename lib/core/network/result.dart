@@ -5,6 +5,7 @@ enum ApiErrorType {
   forbidden,
   notFound,
   server,
+  cancelled,
   unknown,
 }
 

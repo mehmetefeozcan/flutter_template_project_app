@@ -14,6 +14,7 @@ class CustomDioService {
     Map<String, dynamic>? queryParameters,
     Options? options,
     bool isEncrypted = true,
+    CancelToken? cancelToken,
   }) async {
     try {
       Response response = await dio.get(
@@ -21,6 +22,7 @@ class CustomDioService {
         data: data,
         queryParameters: queryParameters,
         options: options,
+        cancelToken: cancelToken,
       );
 
       return Success(response);
@@ -35,6 +37,7 @@ class CustomDioService {
     Map<String, dynamic>? queryParameters,
     Options? options,
     bool isEncrypted = true,
+    CancelToken? cancelToken,
   }) async {
     try {
       Response response = await dio.post(
@@ -42,6 +45,7 @@ class CustomDioService {
         data: data,
         queryParameters: queryParameters,
         options: options,
+        cancelToken: cancelToken,
       );
 
       return Success(response);
@@ -55,6 +59,7 @@ class CustomDioService {
     Object? data,
     Map<String, dynamic>? queryParameters,
     Options? options,
+    CancelToken? cancelToken,
   }) async {
     try {
       Response response = await dio.put(
@@ -62,6 +67,7 @@ class CustomDioService {
         data: data,
         queryParameters: queryParameters,
         options: options,
+        cancelToken: cancelToken,
       );
 
       return Success(response);
@@ -75,6 +81,7 @@ class CustomDioService {
     Object? data,
     Map<String, dynamic>? queryParameters,
     Options? options,
+    CancelToken? cancelToken,
   }) async {
     try {
       Response response = await dio.patch(
@@ -82,6 +89,7 @@ class CustomDioService {
         data: data,
         queryParameters: queryParameters,
         options: options,
+        cancelToken: cancelToken,
       );
 
       return Success(response);
@@ -95,6 +103,7 @@ class CustomDioService {
     Object? data,
     Map<String, dynamic>? queryParameters,
     Options? options,
+    CancelToken? cancelToken,
   }) async {
     try {
       Response response = await dio.delete(
@@ -102,6 +111,7 @@ class CustomDioService {
         data: data,
         queryParameters: queryParameters,
         options: options,
+        cancelToken: cancelToken,
       );
 
       return Success(response);
@@ -113,6 +123,10 @@ class CustomDioService {
   ApiException _handleError(Object e) {
     if (e is! DioException) {
       return ApiException(e.toString(), type: ApiErrorType.unknown);
+    }
+
+    if (e.type == DioExceptionType.cancel) {
+      return ApiException('İstek iptal edildi.', type: ApiErrorType.cancelled);
     }
 
     final statusCode = e.response?.statusCode;

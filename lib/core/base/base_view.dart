@@ -1,11 +1,13 @@
+import 'package:flutter_template_project_app/core/base/base_store.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'dart:async';
 
 mixin BaseViewMixin<T extends StatefulWidget> on State<T> {
   final List<ReactionDisposer> _disposers = [];
 
   /// Override in page
-  void onInit() {}
+  Future<void> onInit() async {}
 
   /// Override in page
   void onDispose() {}
@@ -14,14 +16,24 @@ mixin BaseViewMixin<T extends StatefulWidget> on State<T> {
     _disposers.add(disposer);
   }
 
+  BaseStore? get store => null;
+
   @override
   void initState() {
     super.initState();
-    onInit();
+
+    unawaited(_runInit());
+  }
+
+  Future<void> _runInit() async {
+    try {
+      await onInit();
+    } catch (_) {}
   }
 
   @override
   void dispose() {
+    store?.cancelRequests();
     for (final d in _disposers) {
       d();
     }

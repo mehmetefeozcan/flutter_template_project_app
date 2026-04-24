@@ -27,6 +27,16 @@ mixin _$HomeStore on _HomeStore, Store {
     });
   }
 
+  late final _$initAppAsyncAction = AsyncAction(
+    '_HomeStore.initApp',
+    context: context,
+  );
+
+  @override
+  Future<void> initApp() {
+    return _$initAppAsyncAction.run(() => super.initApp());
+  }
+
   @override
   String toString() {
     return '''

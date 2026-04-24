@@ -2,6 +2,7 @@ import 'package:flutter_template_project_app/core/env/env.dart';
 
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:injectable/injectable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
 
 @module
@@ -19,15 +20,16 @@ abstract class DioModule {
     );
 
     dio.interceptors.addAll([
-      PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90,
-      ),
+      if (kDebugMode)
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: false,
+          error: true,
+          compact: true,
+          maxWidth: 90,
+        ),
     ]);
 
     return dio;

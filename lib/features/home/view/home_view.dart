@@ -14,6 +14,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> with BaseViewMixin<HomeView> {
+  @override
   late final HomeStore store;
 
   @override

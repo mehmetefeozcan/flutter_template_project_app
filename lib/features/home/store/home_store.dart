@@ -17,9 +17,8 @@ abstract class _HomeStore extends BaseStore with Store {
   @observable
   List<UserResponseModel>? userList = [];
 
+  @action
   Future<void> initApp() async {
-    await run(() async {
-      userList = await runResult(_homeService.getUserList);
-    });
+    userList = await runResult(_homeService.getUserList);
   }
 }

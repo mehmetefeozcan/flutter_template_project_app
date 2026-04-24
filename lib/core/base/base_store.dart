@@ -1,5 +1,6 @@
 import 'package:flutter_template_project_app/core/network/result.dart';
 import 'package:mobx/mobx.dart';
+import 'package:dio/dio.dart';
 
 part 'base_store.g.dart';
 
@@ -11,6 +12,14 @@ abstract class _BaseStore with Store {
 
   @observable
   String? errorMessage;
+
+  CancelToken _cancelToken = CancelToken();
+  CancelToken get cancelToken => _cancelToken;
+
+  void cancelRequests() {
+    _cancelToken.cancel();
+    _cancelToken = CancelToken();
+  }
 
   @action
   Future<T?> run<T>(Future<T> Function() request) async {
@@ -26,13 +35,14 @@ abstract class _BaseStore with Store {
     }
   }
 
-  @action
   Future<T?> runResult<T>(
     Future<Result<T, ApiException>> Function() request, {
     void Function(ApiException error)? onFailure,
   }) async {
-    isLoading = true;
-    errorMessage = null;
+    runInAction(() {
+      isLoading = true;
+      errorMessage = null;
+    });
 
     try {
       final result = await request();
@@ -45,7 +55,7 @@ abstract class _BaseStore with Store {
         ),
       };
     } finally {
-      isLoading = false;
+      runInAction(() => isLoading = false);
     }
   }
 
@@ -53,6 +63,8 @@ abstract class _BaseStore with Store {
     ApiException error,
     void Function(ApiException)? onFailure,
   ) {
+    if (error.type == ApiErrorType.cancelled) return null;
+
     errorMessage = error.message;
     onFailure?.call(error);
     return null;
