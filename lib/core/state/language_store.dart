@@ -1,5 +1,3 @@
-// ignore_for_file: unused_field
-
 import 'package:flutter_template_project_app/core/storage/hive_service.dart';
 
 import 'package:injectable/injectable.dart';
@@ -17,8 +15,6 @@ abstract class _LanguageStore with Store {
   _LanguageStore(this.settingsStorage);
 
   static const _key = 'languageCode';
-
-  final supportedLocales = [Locale('tr'), Locale('en')];
 
   @observable
   Locale locale = const Locale('tr');
