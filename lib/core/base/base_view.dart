@@ -28,7 +28,11 @@ mixin BaseViewMixin<T extends StatefulWidget> on State<T> {
   Future<void> _runInit() async {
     try {
       await onInit();
-    } catch (_) {}
+    } catch (e, stackTrace) {
+      if (!mounted) return;
+      debugPrint('BaseViewMixin onInit error: $e');
+      debugPrint('$stackTrace');
+    }
   }
 
   @override
