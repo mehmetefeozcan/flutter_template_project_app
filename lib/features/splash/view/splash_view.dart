@@ -1,3 +1,4 @@
+import 'package:flutter_template_project_app/core/base/base_store.dart';
 import 'package:flutter_template_project_app/core/routing/routes/main/main_routes.dart';
 import 'package:flutter_template_project_app/features/splash/store/splash_store.dart';
 import 'package:flutter_template_project_app/core/base/base_view.dart';
@@ -16,29 +17,28 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView>
     with BaseViewMixin<SplashView> {
+  SplashStore? _store;
+
   @override
-  late final SplashStore store;
+  BaseStore? get store => _store;
 
   @override
   Future<void> onInit() async {
-    store = getIt<SplashStore>();
+    _store = getIt<SplashStore>();
 
     addReaction(
-      reaction<bool>((_) => store.navigateToHome, (navigateToHome) {
-        if (navigateToHome) {
+      reaction<bool>((_) => _store!.navigateToHome, (navigateToHome) {
+        if (navigateToHome && mounted) {
           context.go(MainRoutes.home);
         }
       }),
     );
 
-    await store.initApp();
+    await _store!.initApp();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.amber,
-      body: Center(child: Text('Splash View')),
-    );
+    return const Scaffold(body: Center(child: Text('Splash View')));
   }
 }

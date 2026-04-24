@@ -15,11 +15,16 @@ class HomeService {
     final result = await _dio.getRequest(ApiRoutes.users.list);
 
     return switch (result) {
-      Success(:final data) => Success(
-        (data.data['users'] as List)
-            .map((x) => UserResponseModel.fromJson(x as Map<String, dynamic>))
-            .toList(),
-      ),
+      Success(:final data) => switch (data.data['users']) {
+        final List users => Success(
+          users
+              .map((x) => UserResponseModel.fromJson(x as Map<String, dynamic>))
+              .toList(),
+        ),
+        _ => Failure(
+          ApiException('Geçersiz yanıt formatı', type: ApiErrorType.unknown),
+        ),
+      },
       Failure(:final error) => Failure(error),
     };
   }
